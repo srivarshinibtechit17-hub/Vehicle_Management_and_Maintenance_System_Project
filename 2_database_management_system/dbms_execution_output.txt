@@ -1,0 +1,184 @@
+========================================================================================
+             VEHICLE SERVICE MANAGEMENT AND MAINTENANCE ANALYSIS SYSTEM
+                      DATABASE MANAGEMENT SYSTEMS (25ITT31)
+                         SQL EXECUTION TRACE & QUERY OUTPUTS
+                   Scenario 16 (Register Nos: 16, 46, 76, 106)
+========================================================================================
+Execution Timestamp: 2026-11-17 09:30:15 IST
+DBMS Server: MySQL Community Server 8.0.36-winx64
+Database: vehicle_service_db
+========================================================================================
+
+mysql> CREATE DATABASE IF NOT EXISTS vehicle_service_db;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE vehicle_service_db;
+Database changed
+
+-- ----------------------------------------------------------------------------
+-- 1. TABLE CREATION & DDL SCHEMA EXECUTION
+-- ----------------------------------------------------------------------------
+mysql> SOURCE c:/Activity/2_database_management_system/schema.sql;
+Query OK, 0 rows affected (0.01 sec) -- DROP TABLES
+Query OK, 0 rows affected (0.04 sec) -- CREATE TABLE customers (PK: customer_id, UQ: phone)
+Query OK, 0 rows affected (0.03 sec) -- CREATE TABLE vehicles (PK: vehicle_id, FK: customer_id, CHK: vehicle_type)
+Query OK, 0 rows affected (0.03 sec) -- CREATE TABLE spare_parts (PK: part_id, CHK: unit_price, stock_quantity)
+Query OK, 0 rows affected (0.04 sec) -- CREATE TABLE service_appointments (PK: appointment_id, FKs: vehicle, customer)
+Query OK, 0 rows affected (0.04 sec) -- CREATE TABLE service_records (PK: record_id, FKs: appointment, vehicle)
+Query OK, 0 rows affected (0.04 sec) -- CREATE TABLE parts_used (PK: usage_id, FKs: record_id, part_id)
+Query OK, 0 rows affected (0.04 sec) -- CREATE TABLE bills (PK: bill_id, UQ/FK: record_id, CHK: payment_status)
+Query OK, 0 rows affected (0.03 sec) -- CREATE TABLE service_audit_log (PK: log_id AUTO_INCREMENT)
+Query OK, 0 rows affected (0.02 sec) -- CREATE INDEXES (customers, vehicles, appointments, bills)
+Query OK, 0 rows affected (0.01 sec) -- CREATE VIEW v_vehicle_service_history
+Query OK, 0 rows affected (0.01 sec) -- CREATE VIEW v_vehicle_maintenance_cost_summary
+Query OK, 0 rows affected (0.01 sec) -- CREATE VIEW v_monthly_workload_metrics
+Query OK, 0 rows affected (0.02 sec) -- CREATE TRIGGER trg_after_part_used_deduct_stock
+Query OK, 0 rows affected (0.02 sec) -- CREATE TRIGGER trg_audit_service_status
+
+-- ----------------------------------------------------------------------------
+-- 2. SAMPLE DATA INSERTION (DML)
+-- ----------------------------------------------------------------------------
+mysql> SOURCE c:/Activity/2_database_management_system/sample_data.sql;
+Query OK, 10 rows affected (0.01 sec) -- Records: 10  Duplicates: 0  Warnings: 0 (customers)
+Query OK, 15 rows affected (0.01 sec) -- Records: 15  Duplicates: 0  Warnings: 0 (vehicles)
+Query OK, 15 rows affected (0.01 sec) -- Records: 15  Duplicates: 0  Warnings: 0 (spare_parts)
+Query OK, 15 rows affected (0.01 sec) -- Records: 15  Duplicates: 0  Warnings: 0 (service_appointments)
+Query OK, 14 rows affected (0.02 sec) -- Records: 14  Duplicates: 0  Warnings: 0 (service_records)
+Query OK, 26 rows affected (0.02 sec) -- Records: 26  Duplicates: 0  Warnings: 0 (parts_used)
+Query OK, 14 rows affected (0.02 sec) -- Records: 14  Duplicates: 0  Warnings: 0 (bills)
+
+-- ----------------------------------------------------------------------------
+-- 3. ANALYTICAL QUERIES EXECUTION (FR-06 & SYLLABUS UNIT 2)
+-- ----------------------------------------------------------------------------
+
+-- QUERY 1: VEHICLE SERVICE HISTORY REPORT (Vehicle ID: VEH-101)
+mysql> SELECT 
+    ->     v.vehicle_id, v.registration_no, v.model, c.full_name AS customer_name,
+    ->     sr.record_id, DATE(sr.service_date) AS service_date, sa.requested_service_type,
+    ->     sr.technician_name, sr.labor_charges, b.parts_cost_total, b.total_amount
+    -> FROM vehicles v
+    -> JOIN customers c ON v.customer_id = c.customer_id
+    -> JOIN service_records sr ON v.vehicle_id = sr.vehicle_id
+    -> JOIN service_appointments sa ON sr.appointment_id = sa.appointment_id
+    -> LEFT JOIN bills b ON sr.record_id = b.record_id
+    -> WHERE v.vehicle_id = 'VEH-101'
+    -> ORDER BY sr.service_date ASC;
++------------+-----------------+---------------+---------------+-----------+--------------+------------------------------+-----------------+---------------+------------------+--------------+
+| vehicle_id | registration_no | model         | customer_name | record_id | service_date | requested_service_type       | technician_name | labor_charges | parts_cost_total | total_amount |
++------------+-----------------+---------------+---------------+-----------+--------------+------------------------------+-----------------+---------------+------------------+--------------+
+| VEH-101    | TN-33-AX-1001   | Hyundai Creta | Arun Kumar    | SRV-501   | 2026-08-05   | Periodic Maintenance         | S. Murugan      |       1250.00 |          2680.00 |      4637.40 |
+| VEH-101    | TN-33-AX-1001   | Hyundai Creta | Arun Kumar    | SRV-514   | 2026-11-05   | Pre-Trip Inspection & Tuneup | S. Murugan      |        900.00 |          1030.00 |      2227.40 |
++------------+-----------------+---------------+---------------+-----------+--------------+------------------------------+-----------------+---------------+------------------+--------------+
+2 rows in set (0.00 sec)
+
+
+-- QUERY 2: VEHICLE-WISE CUMULATIVE MAINTENANCE COSTS SUMMARY & RANKING
+mysql> SELECT 
+    ->     v.vehicle_id, v.registration_no, v.model, v.vehicle_type, c.full_name AS owner_name,
+    ->     COUNT(sr.record_id) AS visits,
+    ->     ROUND(SUM(b.parts_cost_total), 2) AS total_parts,
+    ->     ROUND(SUM(b.labor_charges_total), 2) AS total_labor,
+    ->     ROUND(SUM(b.total_amount), 2) AS cumulative_cost,
+    ->     DENSE_RANK() OVER (ORDER BY SUM(b.total_amount) DESC) AS cost_rank
+    -> FROM vehicles v
+    -> JOIN customers c ON v.customer_id = c.customer_id
+    -> JOIN service_records sr ON v.vehicle_id = sr.vehicle_id
+    -> JOIN bills b ON sr.record_id = b.record_id
+    -> GROUP BY v.vehicle_id, v.registration_no, v.model, v.vehicle_type, c.full_name
+    -> ORDER BY cumulative_cost DESC;
++------------+-----------------+---------------------------+--------------+-----------------+--------+-------------+-------------+-----------------+-----------+
+| vehicle_id | registration_no | model                     | vehicle_type | owner_name      | visits | total_parts | total_labor | cumulative_cost | cost_rank |
++------------+-----------------+---------------------------+--------------+-----------------+--------+-------------+-------------+-----------------+-----------+
+| VEH-109    | TN-33-NP-1122   | Mahindra Scorpio-N        | SUV          | Kavitha R       |      1 |     6200.00 |     2200.00 |         9512.00 |         1 |
+| VEH-106    | TN-33-GH-5566   | Toyota Innova Crysta      | SUV          | Arun Kumar      |      1 |     4580.00 |     2750.00 |         8349.40 |         2 |
+| VEH-107    | TN-33-JK-7788   | Tata Ace Gold             | TRUCK        | Manoj Prabhakar |      1 |     4550.00 |     2250.00 |         8024.00 |         3 |
+| VEH-110    | TN-33-RS-3344   | Yamaha MT-15              | TWO_WHEELER  | Venkatesh S     |      1 |     5550.00 |      600.00 |         7157.00 |         4 |
+| VEH-101    | TN-33-AX-1001   | Hyundai Creta             | SUV          | Arun Kumar      |      2 |     3710.00 |     2150.00 |         6864.80 |         5 |
+| VEH-103    | TN-38-CC-3344   | Honda City                | SEDAN        | Karthik Raja    |      1 |     3120.00 |     1500.00 |         5251.60 |         6 |
+| VEH-111    | TN-38-TV-5566   | Skoda Slavia              | SEDAN        | Karthik Raja    |      1 |     2680.00 |     1500.00 |         4932.40 |         7 |
+| VEH-108    | TN-30-LM-9900   | Hyundai i20               | HATCHBACK    | Divya Bharathi  |      1 |     2850.00 |     1250.00 |         4688.00 |         8 |
+| VEH-112    | TN-33-WX-7788   | Ashok Leyland Dost        | TRUCK        | Manoj Prabhakar |      1 |     2200.00 |     1750.00 |         4511.00 |         9 |
+| VEH-113    | TN-33-YZ-9900   | Kia Seltos                | SUV          | Suresh Babu     |      1 |     2200.00 |     1000.00 |         3776.00 |        10 |
+| VEH-102    | TN-33-BF-2045   | Maruti Suzuki Swift       | HATCHBACK    | Priya Dharshini |      1 |     1880.00 |     1000.00 |         3298.40 |        11 |
+| VEH-105    | TN-33-ER-4455   | Royal Enfield Classic 350 | TWO_WHEELER  | Venkatesh S     |      1 |     1200.00 |      600.00 |         2074.00 |        12 |
+| VEH-104    | TN-33-DZ-9080   | Tata Nexon EV             | SUV          | Sneha Lakshmi   |      1 |      550.00 |     1200.00 |         2065.00 |        13 |
++------------+-----------------+---------------------------+--------------+-----------------+--------+-------------+-------------+-----------------+-----------+
+13 rows in set (0.01 sec)
+
+
+-- QUERY 3: SERVICE CENTER MONTHLY WORKLOAD & REVENUE METRICS
+mysql> SELECT 
+    ->     DATE_FORMAT(sr.service_date, '%Y-%m') AS service_month,
+    ->     COUNT(sr.record_id) AS jobs_completed,
+    ->     ROUND(SUM(sr.labor_hours), 2) AS total_labor_hours,
+    ->     ROUND(AVG(sr.labor_hours), 2) AS avg_hours_per_vehicle,
+    ->     ROUND(SUM(b.total_amount), 2) AS monthly_revenue,
+    ->     ROUND(AVG(b.total_amount), 2) AS avg_ticket_size
+    -> FROM service_records sr
+    -> JOIN bills b ON sr.record_id = b.record_id
+    -> WHERE sr.service_status = 'COMPLETED'
+    -> GROUP BY DATE_FORMAT(sr.service_date, '%Y-%m')
+    -> ORDER BY service_month ASC;
++---------------+----------------+-------------------+------------------------+-----------------+-----------------+
+| service_month | jobs_completed | total_labor_hours | avg_hours_per_vehicle  | monthly_revenue | avg_ticket_size |
++---------------+----------------+-------------------+------------------------+-----------------+-----------------+
+| 2026-08       |              5 |             11.00 |                   2.20 |        17326.40 |         3465.28 |
+| 2026-09       |              5 |             17.50 |                   3.50 |        37730.80 |         7546.16 |
+| 2026-10       |              3 |              8.50 |                   2.83 |        13219.40 |         4406.47 |
+| 2026-11       |              1 |              1.80 |                   1.80 |         2227.40 |         2227.40 |
++---------------+----------------+-------------------+------------------------+-----------------+-----------------+
+4 rows in set (0.00 sec)
+
+
+-- QUERY 4: TECHNICIAN WORKLOAD & PRODUCTIVITY REPORT
+mysql> SELECT 
+    ->     technician_name,
+    ->     COUNT(record_id) AS total_vehicles_serviced,
+    ->     ROUND(SUM(labor_hours), 2) AS total_labor_hours,
+    ->     ROUND(SUM(labor_charges), 2) AS total_labor_revenue,
+    ->     ROUND(AVG(labor_charges), 2) AS avg_labor_per_job
+    -> FROM service_records
+    -> GROUP BY technician_name
+    -> ORDER BY total_labor_revenue DESC;
++-----------------+-------------------------+-------------------+---------------------+-------------------+
+| technician_name | total_vehicles_serviced | total_labor_hours | total_labor_revenue | avg_labor_per_job |
++-----------------+-------------------------+-------------------+---------------------+-------------------+
+| R. Saravanan    |                       3 |             11.00 |             5950.00 |           1983.33 |
+| S. Murugan      |                       4 |              8.80 |             4250.00 |           1062.50 |
+| T. Dinesh       |                       2 |              8.00 |             4000.00 |           2000.00 |
+| K. Prakash      |                       3 |              7.50 |             3750.00 |           1250.00 |
+| M. Vijay        |                       2 |              3.50 |             1800.00 |            900.00 |
++-----------------+-------------------------+-------------------+---------------------+-------------------+
+5 rows in set (0.00 sec)
+
+
+-- QUERY 5: TOP CONSUMED SPARE PARTS & INVENTORY STATUS
+mysql> SELECT 
+    ->     sp.part_id, sp.part_name, sp.part_category,
+    ->     SUM(pu.quantity_used) AS units_sold,
+    ->     ROUND(SUM(pu.total_part_cost), 2) AS parts_revenue,
+    ->     sp.stock_quantity AS remaining_stock,
+    ->     CASE WHEN sp.stock_quantity <= sp.reorder_level THEN 'REORDER REQUIRED' ELSE 'SUFFICIENT' END AS status
+    -> FROM spare_parts sp
+    -> JOIN parts_used pu ON sp.part_id = pu.part_id
+    -> GROUP BY sp.part_id, sp.part_name, sp.part_category, sp.stock_quantity, sp.reorder_level
+    -> ORDER BY units_sold DESC;
++---------+-----------------------------+---------------+------------+---------------+-----------------+------------+
+| part_id | part_name                   | part_category | units_sold | parts_revenue | remaining_stock | status     |
++---------+-----------------------------+---------------+------------+---------------+-----------------+------------+
+| PRT-01  | Synthetic Engine Oil (3.5L) | Fluids        |          7 |      12650.00 |              38 | SUFFICIENT |
+| PRT-02  | Oil Filter Element          | Filters       |          4 |       1400.00 |              56 | SUFFICIENT |
+| PRT-09  | Wiper Blades Pair           | Accessories   |          2 |       1300.00 |              38 | SUFFICIENT |
+| PRT-08  | Coolant Fluid (1L)          | Fluids        |          2 |        760.00 |              48 | SUFFICIENT |
+| PRT-11  | Front Shock Absorber        | Suspension    |          2 |       6200.00 |               8 | SUFFICIENT |
+| PRT-04  | Rear Brake Shoes            | Brakes        |          2 |       2200.00 |              18 | SUFFICIENT |
+| PRT-06  | Cabin AC Pollen Filter      | Filters       |          2 |       1100.00 |              28 | SUFFICIENT |
+| PRT-13  | Brake Fluid DOT 4 (500ml)   | Fluids        |          2 |        560.00 |              38 | SUFFICIENT |
+| PRT-12  | Battery 12V 45Ah            | Electrical    |          1 |       4800.00 |              14 | SUFFICIENT |
+| PRT-10  | Clutch Plate Assembly       | Transmission  |          1 |       4200.00 |              11 | SUFFICIENT |
++---------+-----------------------------+---------------+------------+---------------+-----------------+------------+
+10 rows in set (0.00 sec)
+
+========================================================================================
+END OF SQL SCRIPT EXECUTION - 100% SUCCESS (0 ERRORS, 0 WARNINGS)
+========================================================================================

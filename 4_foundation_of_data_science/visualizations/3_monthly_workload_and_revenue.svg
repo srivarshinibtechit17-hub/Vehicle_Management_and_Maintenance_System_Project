@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%" style="background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Title -->
+  <text x="425" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Service Center Monthly Workload &amp; Revenue Evolution</text>
+  <text x="425" y="65" text-anchor="middle" font-size="13" fill="#64748b">Dual-Axis Time Series Analysis: Jobs Completed (Bars) vs. Total Billed Revenue (Line)</text>
+
+  <!-- Left Y-Axis Grid & Labels (Workload: 0 to 8 jobs) -->
+  <!-- Origin Y=400 (0), Y=120 (8). Height = 280px -> 35px per job -->
+  <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4">
+    <line x1="100" y1="400" x2="750" y2="400" />
+    <line x1="100" y1="330" x2="750" y2="330" />
+    <line x1="100" y1="260" x2="750" y2="260" />
+    <line x1="100" y1="190" x2="750" y2="190" />
+    <line x1="100" y1="120" x2="750" y2="120" />
+  </g>
+
+  <!-- Left Y-Axis Labels (Blue) -->
+  <g font-size="12" fill="#0284c7" font-weight="bold" text-anchor="end">
+    <text x="85" y="405">0</text>
+    <text x="85" y="335">2</text>
+    <text x="85" y="265">4</text>
+    <text x="85" y="195">6</text>
+    <text x="85" y="125">8</text>
+    <text x="40" y="260" transform="rotate(-90 40 260)" text-anchor="middle" font-size="13">Completed Jobs (Workload)</text>
+  </g>
+
+  <!-- Right Y-Axis Labels (Red: ₹0 to ₹40,000) -->
+  <!-- Y=400 (0), Y=120 (40,000). 280px / 40000 = 0.007px per ₹ -->
+  <g font-size="12" fill="#dc2626" font-weight="bold" text-anchor="start">
+    <text x="765" y="405">₹0</text>
+    <text x="765" y="335">₹10,000</text>
+    <text x="765" y="265">₹20,000</text>
+    <text x="765" y="195">₹30,000</text>
+    <text x="765" y="125">₹40,000</text>
+    <text x="820" y="260" transform="rotate(90 820 260)" text-anchor="middle" font-size="13">Total Revenue Realized (₹)</text>
+  </g>
+
+  <!-- Data Months: Aug 2026 (X=180), Sep 2026 (X=340), Oct 2026 (X=500), Nov 2026 (X=660) -->
+  <!-- 1. Aug 2026: Jobs=5 (Y_bar=225, H=175), Revenue=₹17,263 (Y_rev = 400 - 17263*0.007 = 279) -->
+  <rect x="145" y="225" width="70" height="175" rx="4" fill="#38bdf8" opacity="0.8" />
+  <text x="180" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#0369a1">5 Jobs</text>
+
+  <!-- 2. Sep 2026: Jobs=5 (Y_bar=225, H=175), Revenue=₹37,560 (Y_rev = 400 - 37560*0.007 = 137) -->
+  <rect x="305" y="225" width="70" height="175" rx="4" fill="#38bdf8" opacity="0.8" />
+  <text x="340" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#0369a1">5 Jobs</text>
+
+  <!-- 3. Oct 2026: Jobs=3 (Y_bar=295, H=105), Revenue=₹13,222 (Y_rev = 400 - 13222*0.007 = 307) -->
+  <rect x="465" y="295" width="70" height="105" rx="4" fill="#38bdf8" opacity="0.8" />
+  <text x="500" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#0369a1">3 Jobs</text>
+
+  <!-- 4. Nov 2026: Jobs=7 (Y_bar=155, H=245), Revenue=₹27,337 (Y_rev = 400 - 27337*0.007 = 208) -->
+  <rect x="625" y="155" width="70" height="245" rx="4" fill="#38bdf8" opacity="0.8" />
+  <text x="660" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#0369a1">7 Jobs</text>
+
+  <!-- Revenue Trend Line -->
+  <polyline points="180,279 340,137 500,307 660,208" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="180" cy="279" r="6" fill="#b91c1c" stroke="#ffffff" stroke-width="2" />
+  <circle cx="340" cy="137" r="6" fill="#b91c1c" stroke="#ffffff" stroke-width="2" />
+  <circle cx="500" cy="307" r="6" fill="#b91c1c" stroke="#ffffff" stroke-width="2" />
+  <circle cx="660" cy="208" r="6" fill="#b91c1c" stroke="#ffffff" stroke-width="2" />
+
+  <text x="180" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">₹17,263</text>
+  <text x="340" y="123" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">₹37,560</text>
+  <text x="500" y="325" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">₹13,222</text>
+  <text x="660" y="196" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">₹27,337</text>
+
+  <!-- X-Axis Labels -->
+  <g font-size="13" font-weight="bold" fill="#334155" text-anchor="middle">
+    <text x="180" y="425">August 2026</text>
+    <text x="340" y="425">September 2026</text>
+    <text x="500" y="425">October 2026</text>
+    <text x="660" y="425">November 2026</text>
+  </g>
+
+  <!-- Legend -->
+  <rect x="290" y="450" width="270" height="35" rx="6" fill="#f8fafc" stroke="#cbd5e1" />
+  <rect x="305" y="460" width="16" height="14" fill="#38bdf8" />
+  <text x="328" y="472" font-size="11" fill="#334155">Completed Jobs</text>
+  <line x1="435" y1="467" x2="455" y2="467" stroke="#dc2626" stroke-width="3" />
+  <circle cx="445" cy="467" r="4" fill="#b91c1c" />
+  <text x="465" y="472" font-size="11" fill="#334155">Revenue Realized (₹)</text>
+</svg>

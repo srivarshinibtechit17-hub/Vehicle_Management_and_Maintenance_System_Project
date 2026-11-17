@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%" style="background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Title -->
+  <text x="425" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Automobile Service Type Demand &amp; Booking Frequency</text>
+  <text x="425" y="65" text-anchor="middle" font-size="13" fill="#64748b">Scenario 16: Vehicle Service Management &amp; Maintenance Analysis System</text>
+
+  <!-- Grid lines -->
+  <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4">
+    <line x1="280" y1="90" x2="280" y2="430" />
+    <line x1="360" y1="90" x2="360" y2="430" />
+    <line x1="440" y1="90" x2="440" y2="430" />
+    <line x1="520" y1="90" x2="520" y2="430" />
+    <line x1="600" y1="90" x2="600" y2="430" />
+    <line x1="680" y1="90" x2="680" y2="430" />
+    <line x1="760" y1="90" x2="760" y2="430" />
+  </g>
+
+  <!-- X Axis labels -->
+  <g font-size="12" fill="#64748b" text-anchor="middle">
+    <text x="280" y="450">0</text>
+    <text x="360" y="450">1</text>
+    <text x="440" y="450">2</text>
+    <text x="520" y="450">3</text>
+    <text x="600" y="450">4</text>
+    <text x="680" y="450">5</text>
+    <text x="760" y="450">6</text>
+    <text x="840" y="450">7</text>
+    <text x="560" y="480" font-weight="bold" fill="#334155">Number of Service Appointments</text>
+  </g>
+
+  <!-- Y Axis & Bars -->
+  <!-- 1. Periodic Maintenance (7) -->
+  <text x="260" y="115" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Periodic Maintenance</text>
+  <rect x="280" y="98" width="560" height="26" rx="4" fill="#3b82f6" />
+  <text x="850" y="116" font-size="13" font-weight="bold" fill="#1e3a8a">7</text>
+
+  <!-- 2. Brake Repair & Overhaul (3) -->
+  <text x="260" y="157" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Brake Repair &amp; Overhaul</text>
+  <rect x="280" y="140" width="240" height="26" rx="4" fill="#06b6d4" />
+  <text x="530" y="158" font-size="13" font-weight="bold" fill="#0e7490">3</text>
+
+  <!-- 3. Oil Change & Filter Service (3) -->
+  <text x="260" y="199" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Oil Change &amp; Filter Service</text>
+  <rect x="280" y="182" width="240" height="26" rx="4" fill="#10b981" />
+  <text x="530" y="200" font-size="13" font-weight="bold" fill="#047857">3</text>
+
+  <!-- 4. Suspension Repair (2) -->
+  <text x="260" y="241" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Suspension Repair</text>
+  <rect x="280" y="224" width="160" height="26" rx="4" fill="#8b5cf6" />
+  <text x="450" y="242" font-size="13" font-weight="bold" fill="#6d28d9">2</text>
+
+  <!-- 5. Electrical Inspection (2) -->
+  <text x="260" y="283" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Electrical Inspection</text>
+  <rect x="280" y="266" width="160" height="26" rx="4" fill="#f59e0b" />
+  <text x="450" y="284" font-size="13" font-weight="bold" fill="#b45309">2</text>
+
+  <!-- 6. Clutch Replacement (1) -->
+  <text x="260" y="325" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Clutch Replacement</text>
+  <rect x="280" y="308" width="80" height="26" rx="4" fill="#ec4899" />
+  <text x="370" y="326" font-size="13" font-weight="bold" fill="#be185d">1</text>
+
+  <!-- 7. AC System Overhaul (1) -->
+  <text x="260" y="367" text-anchor="end" font-size="13" font-weight="600" fill="#334155">AC System Overhaul</text>
+  <rect x="280" y="350" width="80" height="26" rx="4" fill="#6366f1" />
+  <text x="370" y="368" font-size="13" font-weight="bold" fill="#4338ca">1</text>
+
+  <!-- 8. Major Overhaul (1) -->
+  <text x="260" y="409" text-anchor="end" font-size="13" font-weight="600" fill="#334155">Major Overhaul</text>
+  <rect x="280" y="392" width="80" height="26" rx="4" fill="#ef4444" />
+  <text x="370" y="410" font-size="13" font-weight="bold" fill="#b91c1c">1</text>
+
+  <!-- Y Axis Base Line -->
+  <line x1="280" y1="80" x2="280" y2="430" stroke="#94a3b8" stroke-width="2" />
+</svg>

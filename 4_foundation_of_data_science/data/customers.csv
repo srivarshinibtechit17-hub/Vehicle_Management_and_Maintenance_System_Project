@@ -1,0 +1,11 @@
+customer_id,full_name,phone,email,address,registered_date
+CUST-1001,"Arun Kumar",9842100001,arun.kumar@gmail.com,"12 Perundurai Road, Erode",2026-01-10
+CUST-1002,"Priya Dharshini",9842100002,priya.d@yahoo.com,"45 Brough Road, Erode",2026-01-15
+CUST-1003,"Karthik Raja",9842100003,karthik.raja@outlook.com,"88 Gandhipuram, Coimbatore",2026-02-01
+CUST-1004,"Sneha Lakshmi",9842100004,sneha.l@gmail.com,"104 Mettur Road, Erode",2026-02-12
+CUST-1005,"Venkatesh S",9842100005,venkat.s@gmail.com,"23 EVN Road, Erode",2026-03-05
+CUST-1006,"Divya Bharathi",9842100006,divya.b@hotmail.com,"78 Thindal, Erode",2026-03-20
+CUST-1007,"Manoj Prabhakar",9842100007,manoj.p@gmail.com,"56 Collectorate Post, Salem",2026-04-10
+CUST-1008,"Kavitha R",9842100008,kavitha.r@gmail.com,"91 Kollampalayam, Erode",2026-05-02
+CUST-1009,"Suresh Babu",9842100009,suresh.babu@gmail.com,"14 Chithode, Erode",2026-06-15
+CUST-1010,"Deepa Shankar",9842100010,deepa.s@gmail.com,"33 Nasiyanur Road, Erode",2026-07-01

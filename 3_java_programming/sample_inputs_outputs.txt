@@ -1,0 +1,169 @@
+========================================================================================
+             VEHICLE SERVICE MANAGEMENT & MAINTENANCE ANALYSIS SYSTEM
+                  SAMPLE EXECUTION LOGS, INPUTS, AND OUTPUTS
+                 Academic Year: 2026-2027 (ODD) | Class: 25IT3A&B
+                     Scenario 16 (Reg: 16, 46, 76, 106)
+========================================================================================
+
+----------------------------------------------------------------------------------------
+SCENARIO 1: CUSTOMER REGISTRATION (FR-01)
+----------------------------------------------------------------------------------------
+INPUT SEQUENCE:
+Main Menu > 1 (Customer Management)
+Customer Management > 1 (Register New Customer)
+Enter Customer Full Name: Senthil Velan
+Enter 10-Digit Mobile Phone: 9842199999
+Enter Email Address: senthil.v@gmail.com
+Enter Residential/Office Address: 77 Sakthi Road, Erode
+
+ACTUAL SYSTEM OUTPUT:
+>> SUCCESS: Customer registered successfully!
+   Assigned Customer ID: CUST-1011
+   Record: [CUST-1011] Senthil Velan      | Phone: 9842199999   | Email: senthil.v@gmail.com    | Address: 77 Sakthi Road, Erode
+
+----------------------------------------------------------------------------------------
+SCENARIO 2: VEHICLE REGISTRATION & MAPPING (FR-02)
+----------------------------------------------------------------------------------------
+INPUT SEQUENCE:
+Main Menu > 2 (Vehicle Management)
+Vehicle Management > 1 (Register New Vehicle)
+Enter Vehicle Registration No: TN-33-ZZ-8888
+Enter Vehicle Model: Tata Safari
+Select Vehicle Type: 2 (SUV)
+Enter Manufacturing Year: 2023
+Enter Owner Customer ID: CUST-1011
+
+ACTUAL SYSTEM OUTPUT:
+>> SUCCESS: Vehicle registered successfully!
+   Assigned Vehicle ID: VEH-116
+   Record: [VEH-116] Reg: TN-33-ZZ-8888 | Model: Tata Safari          | Type: SUV          | Year: 2023 | Owner: CUST-1011
+
+----------------------------------------------------------------------------------------
+SCENARIO 3: SCHEDULE SERVICE APPOINTMENT (FR-03)
+----------------------------------------------------------------------------------------
+INPUT SEQUENCE:
+Main Menu > 3 (Service Appointments)
+Service Appointments > 1 (Schedule New Service Appointment)
+Enter Vehicle ID: VEH-116
+Enter Appointment Date: 2026-11-20
+Enter Time Slot: 10:00 AM - 12:00 PM
+Enter Requested Service Type: Periodic Maintenance & Brake Inspection
+
+ACTUAL SYSTEM OUTPUT:
+>> SUCCESS: Appointment booked successfully!
+   Booking Reference ID: APT-316
+   Record: [APT-316] Date: 2026-11-20 (10:00 AM - 12:00 PM) | Vehicle: VEH-116  | Service: Periodic Maintenance & Brake Inspection | Status: Scheduled
+
+--- ERROR CASE DEMONSTRATION (APPOINTMENT CONFLICT CHECK) ---
+Attempting to book a 4th vehicle in the same saturated bay slot:
+>> BOOKING ERROR: Service capacity exceeded for 2026-11-20 at 10:00 AM - 12:00 PM. Please select another slot.
+
+----------------------------------------------------------------------------------------
+SCENARIO 4: MAINTENANCE EXECUTION & SPARE PARTS ALLOCATION (FR-04)
+----------------------------------------------------------------------------------------
+INPUT SEQUENCE:
+Main Menu > 4 (Maintenance Operations)
+Maintenance Operations > 1 (Initiate Maintenance)
+Enter Appointment ID: APT-316
+Enter Lead Technician Name: S. Murugan
+Enter Description of Work Performed: Engine oil drained & flushed, new synthetic oil filled, front brake pads replaced.
+Enter Estimated Labor Hours: 3.0
+
+ACTUAL SYSTEM OUTPUT:
+>> SUCCESS: Service record initiated!
+   Assigned Service Record ID: SRV-515
+
+PARTS ALLOCATION SEQUENCE:
+Maintenance Operations > 2 (Allocate Spare Part)
+Enter Service Record ID: SRV-515
+Enter Spare Part ID: PRT-01 (Synthetic Engine Oil 3.5L @ ₹1850.00)
+Enter Quantity to Allocate: 1
+>> SUCCESS: Part allocated and stock decremented successfully.
+
+Maintenance Operations > 2 (Allocate Spare Part)
+Enter Service Record ID: SRV-515
+Enter Spare Part ID: PRT-03 (Front Brake Pads Set @ ₹1600.00)
+Enter Quantity to Allocate: 1
+>> SUCCESS: Part allocated and stock decremented successfully.
+
+Maintenance Operations > 3 (Mark Service as Completed)
+Enter Service Record ID to Mark Completed: SRV-515
+>> SUCCESS: Service Record SRV-515 marked as COMPLETED.
+
+----------------------------------------------------------------------------------------
+SCENARIO 5: BILLING & INVOICE GENERATION (FR-05)
+----------------------------------------------------------------------------------------
+INPUT SEQUENCE:
+Main Menu > 5 (Billing & Invoicing)
+Billing & Invoicing > 1 (Generate Bill)
+Enter Completed Service Record ID: SRV-515
+Enter Discount Amount in ₹: 150.00
+Enter Payment Mode: UPI
+
+ACTUAL SYSTEM OUTPUT:
+>> SUCCESS: Bill generated successfully!
+====================================================================
+               AUTO-CARE SERVICE CENTER TAX INVOICE                 
+====================================================================
+ Invoice No   : BIL-815              Date: 2026-11-20
+ Service ID   : SRV-515              Vehicle ID: VEH-116
+ Customer ID  : CUST-1011            Payment Mode: UPI
+--------------------------------------------------------------------
+ Spare Parts Charges                     : ₹      3450.00
+ Labor & Workmanship Charges             : ₹      1500.00
+--------------------------------------------------------------------
+ Subtotal                                : ₹      4950.00
+ Promotional Discount Applied            : ₹       150.00
+ GST Tax (18.0%)                         : ₹       864.00
+====================================================================
+ TOTAL INVOICE PAYABLE                   : ₹      5664.00
+ Payment Status                          : PAID
+====================================================================
+
+----------------------------------------------------------------------------------------
+SCENARIO 6: OPERATIONAL REPORTS (FR-06)
+----------------------------------------------------------------------------------------
+REPORT A: VEHICLE SERVICE HISTORY (Vehicle ID: VEH-101)
+========================================================================================
+                      SERVICE HISTORY REPORT: TN-33-AX-1001 (Hyundai Creta)                  
+ Owner: Arun Kumar                | Phone: 9842100001      | Type: SUV
+========================================================================================
+Record ID  | Date         | Service Type           | Technician      | Labor (₹)  | Total (₹) 
+----------------------------------------------------------------------------------------
+SRV-501    | 2026-08-05   | Periodic Maintenance   | S. Murugan      |    1250.00 |    4637.40
+SRV-514    | 2026-11-05   | Pre-Trip Inspection    | S. Murugan      |     900.00 |    2227.40
+----------------------------------------------------------------------------------------
+ CUMULATIVE LIFETIME MAINTENANCE EXPENDITURE: ₹ 6864.80
+========================================================================================
+
+REPORT B: SERVICE CENTER WORKLOAD & PERFORMANCE METRICS
+========================================================================================
+                         SERVICE CENTER WORKLOAD & PERFORMANCE METRICS                  
+========================================================================================
+ Total Service Appointments Logged : 16
+ Currently Scheduled / Pending     : 1
+ Completed Service Jobs            : 15
+ Total Technician Labor Hours      : 39.30 hours
+ Cumulative Center Revenue         : ₹ 78,574.60
+----------------------------------------------------------------------------------------
+ TECHNICIAN WORKLOAD BREAKDOWN:
+ Technician Name      | Jobs Handled    | Labor Hours Billed | Labor Revenue (₹)
+----------------------------------------------------------------------------------------
+ S. Murugan           | 5               |              11.80 |           5750.00
+ R. Saravanan         | 3               |              11.00 |           5950.00
+ K. Prakash           | 3               |               7.50 |           3750.00
+ M. Vijay             | 2               |               3.50 |           1800.00
+ T. Dinesh            | 2               |               8.00 |           4000.00
+========================================================================================
+
+----------------------------------------------------------------------------------------
+SCENARIO 7: DATA SYNC WITH PYTHON PIPELINE (FR-07)
+----------------------------------------------------------------------------------------
+Main Menu > 7 (Export Data to CSV)
+Exporting database entities to CSV at: c:/Activity/4_foundation_of_data_science/data ...
+>> SUCCESS: Dataset exported successfully!
+   1. customers.csv
+   2. vehicles.csv
+   3. vehicle_maintenance_dataset.csv
+   Ready for Python Preprocessing & Visualization scripts.
+========================================================================================

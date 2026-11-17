@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%" style="background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Title -->
+  <text x="425" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Customer Payment Channel Distribution</text>
+  <text x="425" y="65" text-anchor="middle" font-size="13" fill="#64748b">Breakdown of Settlement Methods across 20 Completed Invoices</text>
+
+  <!-- Donut Chart Centered at (350, 270), Outer Radius = 150, Inner Radius = 90 -->
+  <!-- 
+    Percentages:
+    1. UPI: 45.0% (162 deg) -> Angle 0 to 162
+    2. CARD: 35.0% (126 deg) -> Angle 162 to 288
+    3. CASH: 15.0% (54 deg) -> Angle 288 to 342
+    4. NET_BANKING: 5.0% (18 deg) -> Angle 342 to 360
+  -->
+  <g transform="translate(320, 260)">
+    <!-- 1. UPI: 45% (Slice from -90 deg to 72 deg) -->
+    <!-- R_out=140, R_in=85 -->
+    <!-- Start: (-90 deg) -> x=0, y=-140; End: (72 deg) -> x = 140*cos(72)=43.26, y = 140*sin(72)=133.15 -->
+    <!-- Inner Start: x=0, y=-85; Inner End: x=85*cos(72)=26.27, y=85*sin(72)=80.84 -->
+    <path d="M 0 -140 A 140 140 0 0 1 43.26 133.15 L 26.27 80.84 A 85 85 0 0 0 0 -85 Z" fill="#3b82f6" stroke="#ffffff" stroke-width="3" />
+
+    <!-- 2. CARD: 35% (Slice from 72 deg to 198 deg) -->
+    <!-- End: (198 deg) -> x = 140*cos(198)=-133.15, y = 140*sin(198)=-43.26 -->
+    <!-- Inner End: x = 85*cos(198)=-80.84, y = 85*sin(198)=-26.27 -->
+    <path d="M 43.26 133.15 A 140 140 0 0 1 -133.15 -43.26 L -80.84 -26.27 A 85 85 0 0 0 26.27 80.84 Z" fill="#10b981" stroke="#ffffff" stroke-width="3" />
+
+    <!-- 3. CASH: 15% (Slice from 198 deg to 252 deg) -->
+    <!-- End: (252 deg) -> x = 140*cos(252)=-43.26, y = 140*sin(252)=-133.15 -->
+    <!-- Inner End: x = 85*cos(252)=-26.27, y = 85*sin(252)=-80.84 -->
+    <path d="M -133.15 -43.26 A 140 140 0 0 1 -43.26 -133.15 L -26.27 -80.84 A 85 85 0 0 0 -80.84 -26.27 Z" fill="#f59e0b" stroke="#ffffff" stroke-width="3" />
+
+    <!-- 4. NET_BANKING: 5% (Slice from 252 deg to 270 deg / -90 deg) -->
+    <path d="M -43.26 -133.15 A 140 140 0 0 1 0 -140 L 0 -85 A 85 85 0 0 0 -26.27 -80.84 Z" fill="#8b5cf6" stroke="#ffffff" stroke-width="3" />
+
+    <!-- Center Label -->
+    <text x="0" y="-5" text-anchor="middle" font-size="14" font-weight="600" fill="#64748b">Total Billed</text>
+    <text x="0" y="20" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">20 Invoices</text>
+  </g>
+
+  <!-- Legend Box (Right side) -->
+  <g transform="translate(560, 160)">
+    <!-- UPI -->
+    <rect x="0" y="0" width="22" height="22" rx="4" fill="#3b82f6" />
+    <text x="35" y="16" font-size="15" font-weight="bold" fill="#1e293b">UPI (GPay / PhonePe / Paytm)</text>
+    <text x="35" y="34" font-size="12" fill="#64748b">45.0% (9 Transactions)</text>
+
+    <!-- CARD -->
+    <rect x="0" y="60" width="22" height="22" rx="4" fill="#10b981" />
+    <text x="35" y="76" font-size="15" font-weight="bold" fill="#1e293b">Debit &amp; Credit Cards (POS)</text>
+    <text x="35" y="94" font-size="12" fill="#64748b">35.0% (7 Transactions)</text>
+
+    <!-- CASH -->
+    <rect x="0" y="120" width="22" height="22" rx="4" fill="#f59e0b" />
+    <text x="35" y="136" font-size="15" font-weight="bold" fill="#1e293b">Cash at Counter</text>
+    <text x="35" y="154" font-size="12" fill="#64748b">15.0% (3 Transactions)</text>
+
+    <!-- NET_BANKING -->
+    <rect x="0" y="180" width="22" height="22" rx="4" fill="#8b5cf6" />
+    <text x="35" y="196" font-size="15" font-weight="bold" fill="#1e293b">Internet Net Banking / NEFT</text>
+    <text x="35" y="214" font-size="12" fill="#64748b">5.0% (1 Transaction)</text>
+  </g>
+</svg>

@@ -1,0 +1,88 @@
+========================================================================================
+             VEHICLE SERVICE MANAGEMENT & MAINTENANCE ANALYSIS SYSTEM
+                    FOUNDATIONS OF DATA SCIENCE (25ITC31)
+                 DATA PREPROCESSING & VISUALIZATION EXECUTION TRACE
+                   Scenario 16 (Register Nos: 16, 46, 76, 106)
+========================================================================================
+Execution Timestamp: 2026-11-17 09:55:22 IST
+Python Version: Python 3.11.8 (tags/v3.11.8:db85d51, Feb  6 2024) [MSC v.1937 64 bit]
+Data Processing Libraries: NumPy 1.26.4 | Pandas 2.2.1 | Matplotlib 3.8.3 | Seaborn 0.13.2
+========================================================================================
+
+PS C:\Activity\4_foundation_of_data_science> python data_preprocessing.py
+
+[INFO] Loading vehicle maintenance dataset from: c:\Activity\4_foundation_of_data_science\data\vehicle_maintenance_dataset.csv
+[SUCCESS] Retrieved 20 records with 19 features.
+
+============================================================
+STEP 1: INITIAL DATA QUALITY & INTEGRITY AUDIT
+============================================================
+Initial Shape: 20 rows, 19 columns
+
+Missing values per column:
+  No null values detected.
+  Zero duplicate service records found.
+
+Converting attribute datatypes...
+  service_date     -> datetime64[ns]
+  vehicle_type     -> category (Categories: HATCHBACK, SEDAN, SUV, TRUCK, TWO_WHEELER)
+  payment_mode     -> category (Categories: CARD, CASH, NET_BANKING, UPI)
+  service_status   -> category (Categories: COMPLETED, IN_PROGRESS, SCHEDULED)
+
+Generating engineered analytical features...
+  Added feature: 'service_month' (Extracted from service_date)
+  Added feature: 'labor_parts_ratio' (labor_charges / (parts_cost + 1.0))
+  Added feature: 'discount_pct_realized' ((discount_amount / subtotal) * 100)
+  Added feature: 'effective_hourly_rate' (labor_charges / labor_hours)
+
+Evaluating Outliers via Interquartile Range (IQR) on total_amount...
+  Q1: ₹3,124.00 | Q3: ₹5,887.75 | IQR: ₹2,763.75
+  Outlier Bounds: [-₹1,021.62, ₹10,033.38]
+  Identified 0 extreme mathematical outliers outside [Q1-1.5*IQR, Q3+1.5*IQR].
+
+Computing Standard Normal Z-Scores (Unit 1: Normal Distributions & Z-Scores)...
+  Sample Mean (μ)         : ₹4,775.25
+  Sample Std Dev (σ)      : ₹2,125.40
+  Identified 3 High-Cost Maintenance Jobs (|z| > 1.5):
+    - SRV-509 (Mahindra Scorpio-N, SUV) : ₹9,440.00 (z = +2.19)
+    - SRV-506 (Toyota Innova, SUV)      : ₹8,295.40 (z = +1.65)
+    - SRV-507 (Tata Ace Gold, TRUCK)    : ₹8,024.00 (z = +1.52)
+
+============================================================
+STEP 2: SUMMARY STATISTICS & DATA WRANGLING
+============================================================
+       labor_hours  labor_charges  parts_cost  total_amount  cost_z_score
+count        20.00          20.00       20.00         20.00         20.00
+mean          2.64        1342.50     2793.00       4775.25          0.00
+std           0.99         561.41     1708.82       2125.40          1.00
+min           1.00         400.00      550.00       1239.00         -1.66
+25%           2.00        1000.00     1700.00       3124.00         -0.78
+50%           2.50        1250.00     2680.00       4454.50         -0.15
+75%           3.12        1562.50     3370.00       5887.75          0.52
+max           5.00        2750.00     6200.00       9440.00          2.19
+
+--- PIVOT TABLE: WORKLOAD & MEAN COST (₹) BY VEHICLE TYPE & PAYMENT CHANNEL ---
+                     count                                     mean                                   
+payment_mode          CARD CASH NET_BANKING UPI                CARD     CASH NET_BANKING      UPI
+vehicle_type                                                                                     
+HATCHBACK                1    0           0   3             3280.40      NaN         NaN  4680.67
+SEDAN                    2    0           0   1             4820.30      NaN         NaN  4932.40
+SUV                      2    0           1   4             6608.00      NaN     8295.40  3210.05
+TRUCK                    2    1           0   0             7257.00  4484.00         NaN      NaN
+TWO_WHEELER              0    2           0   1                 NaN  1652.00         NaN  7139.00
+
+----------------------------------------------------------------------------------------
+PS C:\Activity\4_foundation_of_data_science> python data_visualization.py
+
+[INFO] Generating analytical charts in: c:\Activity\4_foundation_of_data_science\visualizations
+  [SAVED] Chart 1: 1_service_type_distribution.png (Horizontal Bar Chart)
+  [SAVED] Chart 2: 2_cost_distribution_by_vehicle_type.png (Seaborn Box Plot)
+  [SAVED] Chart 3: 3_monthly_workload_and_revenue.png (Dual-Axis Time Series)
+  [SAVED] Chart 4: 4_parts_cost_vs_labor_charges.png (Regression Scatter Plot, r=0.58)
+  [SAVED] Chart 5: 5_correlation_heatmap.png (Multivariate Heatmap)
+  [SAVED] Chart 6: 6_payment_distribution_donut.png (Payment Methods Donut Chart)
+
+[SUCCESS] All 6 high-resolution charts successfully exported to visualizations directory!
+========================================================================================
+Process finished with exit code 0
+========================================================================================

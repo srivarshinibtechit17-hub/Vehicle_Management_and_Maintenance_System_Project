@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%" style="background-color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Title -->
+  <text x="425" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">Correlation: Spare Parts Expenditure vs. Labor Charges (₹)</text>
+  <text x="425" y="65" text-anchor="middle" font-size="13" fill="#64748b">Scatter Plot with Ordinary Least Squares (OLS) Regression Trendline (r = 0.58)</text>
+
+  <!-- Plot Area: X from 120 to 780 (Parts: ₹0 to ₹7,000), Y from 420 to 100 (Labor: ₹0 to ₹3,000) -->
+  <!-- Grid -->
+  <g stroke="#e2e8f0" stroke-width="1" stroke-dasharray="4">
+    <!-- Horizontal (Labor) -->
+    <line x1="120" y1="420" x2="780" y2="420" />
+    <line x1="120" y1="367" x2="780" y2="367" />
+    <line x1="120" y1="313" x2="780" y2="313" />
+    <line x1="120" y1="260" x2="780" y2="260" />
+    <line x1="120" y1="207" x2="780" y2="207" />
+    <line x1="120" y1="153" x2="780" y2="153" />
+    <line x1="120" y1="100" x2="780" y2="100" />
+    <!-- Vertical (Parts) -->
+    <line x1="120" y1="100" x2="120" y2="420" />
+    <line x1="214" y1="100" x2="214" y2="420" />
+    <line x1="308" y1="100" x2="308" y2="420" />
+    <line x1="403" y1="100" x2="403" y2="420" />
+    <line x1="497" y1="100" x2="497" y2="420" />
+    <line x1="591" y1="100" x2="591" y2="420" />
+    <line x1="686" y1="100" x2="686" y2="420" />
+    <line x1="780" y1="100" x2="780" y2="420" />
+  </g>
+
+  <!-- Axis Labels -->
+  <g font-size="11" fill="#64748b" text-anchor="middle">
+    <text x="120" y="440">₹0</text>
+    <text x="214" y="440">₹1,000</text>
+    <text x="308" y="440">₹2,000</text>
+    <text x="403" y="440">₹3,000</text>
+    <text x="497" y="440">₹4,000</text>
+    <text x="591" y="440">₹5,000</text>
+    <text x="686" y="440">₹6,000</text>
+    <text x="780" y="440">₹7,000</text>
+    <text x="450" y="470" font-size="13" font-weight="bold" fill="#334155">Spare Parts Cost (₹)</text>
+  </g>
+
+  <g font-size="11" fill="#64748b" text-anchor="end">
+    <text x="110" y="424">₹0</text>
+    <text x="110" y="371">₹500</text>
+    <text x="110" y="317">₹1,000</text>
+    <text x="110" y="264">₹1,500</text>
+    <text x="110" y="211">₹2,000</text>
+    <text x="110" y="157">₹2,500</text>
+    <text x="110" y="104">₹3,000</text>
+    <text x="50" y="260" transform="rotate(-90 50 260)" font-size="13" font-weight="bold" fill="#334155">Labor Charges (₹)</text>
+  </g>
+
+  <!-- Regression Line: Parts=0 -> Labor=650 (Y=351); Parts=6500 -> Labor=2450 (Y=158) -->
+  <line x1="120" y1="351" x2="732" y2="158" stroke="#ef4444" stroke-width="3" stroke-dasharray="6 3" />
+
+  <!-- Scatter Points -->
+  <!-- 1. SRV-501: Parts=2680 (X=373), Labor=1250 (Y=287) -->
+  <circle cx="373" cy="287" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 2. SRV-502: Parts=1880 (X=297), Labor=1000 (Y=313) -->
+  <circle cx="297" cy="313" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 3. SRV-503: Parts=3120 (X=414), Labor=1500 (Y=260) -->
+  <circle cx="414" cy="260" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 4. SRV-504: Parts=550 (X=172), Labor=1200 (Y=292) -->
+  <circle cx="172" cy="292" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 5. SRV-505: Parts=1200 (X=233), Labor=600 (Y=356) -->
+  <circle cx="233" cy="356" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 6. SRV-506: Parts=4580 (X=552), Labor=2750 (Y=127) -->
+  <circle cx="552" cy="127" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 7. SRV-507: Parts=4550 (X=549), Labor=2250 (Y=180) -->
+  <circle cx="549" cy="180" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 8. SRV-508: Parts=2850 (X=389), Labor=1250 (Y=287) -->
+  <circle cx="389" cy="287" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 9. SRV-509: Parts=6200 (X=705), Labor=2200 (Y=185) -->
+  <circle cx="705" cy="185" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 10. SRV-510: Parts=5550 (X=643), Labor=600 (Y=356) -->
+  <circle cx="643" cy="356" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 11. SRV-511: Parts=2680 (X=373), Labor=1500 (Y=260) -->
+  <circle cx="373" cy="260" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 12. SRV-512: Parts=2200 (X=327), Labor=1750 (Y=233) -->
+  <circle cx="327" cy="233" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 13. SRV-513: Parts=2200 (X=327), Labor=1000 (Y=313) -->
+  <circle cx="327" cy="313" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 14. SRV-514: Parts=1030 (X=217), Labor=900 (Y=324) -->
+  <circle cx="217" cy="324" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+  <!-- 15. SRV-515: Parts=2200 (X=327), Labor=1250 (Y=287) -->
+  <circle cx="327" cy="287" r="6" fill="#0d9488" stroke="#134e4a" stroke-width="1.5" />
+
+  <!-- Annotation Badge -->
+  <rect x="520" y="80" width="240" height="48" rx="6" fill="#f8fafc" stroke="#cbd5e1" />
+  <text x="535" y="100" font-size="12" font-weight="bold" fill="#0f172a">Correlation Coefficient: r = +0.58</text>
+  <text x="535" y="118" font-size="11" fill="#64748b">Moderate Positive Linear Relationship</text>
+</svg>
